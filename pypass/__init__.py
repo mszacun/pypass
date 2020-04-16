@@ -16,8 +16,10 @@ class PasswordStoreEntry:
     def _parse_entry(self, path):
         content = self._read_password_store_entry(path)
 
-        self.parsed_content['password'] = content[0]
-        for line in content[1:]:
+        if not self.PASS_ADDITIONAL_ENTRY_REGEXP.match(content[0]):
+            self.parsed_content['password'] = content.pop(0)
+
+        for line in content:
             match = self.PASS_ADDITIONAL_ENTRY_REGEXP.match(line)
             if match:
                 self.parsed_content[match.group(1)] = match.group(2)
