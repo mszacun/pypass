@@ -21,3 +21,9 @@ print(entry['password']) # Yw|ZSNH!}z"6{ym9pI
 print(entry['Username']) # AmazonianChicken@example.com
 print(entry['PIN']) # 84719
 ```
+
+Additionally if `pass-otp` is available and desired entry has OTP key URI defined, OTP code can be obtained using
+
+```python
+print(entry.get_otp_code())
+```

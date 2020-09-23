@@ -7,6 +7,7 @@ class PasswordStoreEntry:
 
     def __init__(self, path):
         self.parsed_content = {}
+        self.path = path
 
         self._parse_entry(path)
 
@@ -23,6 +24,9 @@ class PasswordStoreEntry:
             match = self.PASS_ADDITIONAL_ENTRY_REGEXP.match(line)
             if match:
                 self.parsed_content[match.group(1)] = match.group(2)
+
+    def get_otp_code(self):
+        return subprocess.check_output(['pass', 'otp', self.path]).decode().strip()
 
     def __contains__(self, key):
         return key in self.parsed_content
