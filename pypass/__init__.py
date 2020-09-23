@@ -24,5 +24,8 @@ class PasswordStoreEntry:
             if match:
                 self.parsed_content[match.group(1)] = match.group(2)
 
+    def __contains__(self, key):
+        return key in self.parsed_content
+
     def __getitem__(self, key):
         return self.parsed_content[key]
